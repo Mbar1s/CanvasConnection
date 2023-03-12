@@ -1,48 +1,76 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Spin from "../assets/spin";
 
 type Art = {
   title: string;
   image_id: string;
   artist_title: string;
-  thumbnail: object;
+  thumbnail: any;
 };
 export default function Home() {
   const [art, setArt] = useState<Art | null>(null);
+  const [page, setPage] = useState(1);
+  const [previousPage, setPreviousPage] = useState([page]);
 
+  const nextPage = () => {
+    setArt(null);
+    setPage(Math.floor(Math.random() * 119563));
+    setPreviousPage([...previousPage, page]);
+  };
+  const prevPage = () => {
+    setPage(previousPage[previousPage.length - 1]);
+    previousPage.pop();
+  };
+  console.log(page);
+  console.log(previousPage);
   useEffect(() => {
     axios
-      .get(`https://api.artic.edu/api/v1/artworks/27993`)
+      .get(`https://api.artic.edu/api/v1/artworks?page=${page}&limit=1`)
       .then((res) => {
         console.log(res);
-        setArt(res.data.data);
+        setArt(res.data.data[0]);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [page]);
   console.log(art);
   return (
-    <div className="grow">
-      <article className="bg-black text-white h-screen grid grid-cols-3 grid-rows-3">
-        <div className="h-full border col-span-2 row-span-2 border-white flex items-center justify-center">
-          <img
-            className="h-full w-full"
-            src={`https://www.artic.edu/iiif/2/${art?.image_id}/full/843,/0/default.jpg`}
-          />
-        </div>
-        <div className="h-full border row-span-2 border-white flex items-center justify-center">
-          <p>{art?.thumbnail.alt_text}</p>
-        </div>
-        <div className="h-full border col-span-2 border-white flex gap-4 items-center justify-center">
-          <h1>{art?.title}</h1>
-          <h1>{art?.artist_title}</h1>
-        </div>
-        <div className="h-full border border-white flex gap-4 items-center justify-center">
-          <button>Back</button>
-          <button>Next</button>
-        </div>
-      </article>
+    <div className="grow font-Courgette">
+      {art ? (
+        <article className="bg-black text-white h-screen grid grid-cols-3 grid-rows-3">
+          <div className="h-full border col-span-2 row-span-2 border-slate-700 flex items-center justify-center">
+            <img
+              className="h-full w-full"
+              src={`https://www.artic.edu/iiif/2/${art?.image_id}/full/843,/0/default.jpg`}
+            />
+          </div>
+          <div className="h-full border row-span-2 border-slate-700 flex items-center justify-center">
+            <p className="text-3xl p-4">{art?.thumbnail?.alt_text}</p>
+          </div>
+          <div className="h-full border col-span-2 border-slate-700 flex flex-col gap-4 items-center justify-center">
+            <h1 className="text-4xl">{art?.artist_title}</h1>
+            <h1 className="text-3xl p-2">{art?.title}</h1>
+          </div>
+          <div className="h-full grid grid-cols-2  border border-slate-700  items-center justify-center">
+            <button
+              className="h-full border-slate-700 border-r-2 hover:bg-slate-800 duration-300"
+              onClick={prevPage}
+            >
+              Back
+            </button>
+            <button
+              className="h-full hover:bg-slate-800 duration-300"
+              onClick={nextPage}
+            >
+              Next
+            </button>
+          </div>
+        </article>
+      ) : (
+        <Spin />
+      )}
     </div>
   );
 }
