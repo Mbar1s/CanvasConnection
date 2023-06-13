@@ -39,20 +39,19 @@ export default function Home() {
   return (
     <div className="grow font-Courgette">
       {art ? (
-        <article className="bg-black text-white h-screen grid grid-cols-3 grid-rows-3">
-          <div className="h-full border col-span-2 row-span-2 border-slate-700 flex items-center justify-center">
+        <article className=" bg-gray-800 text-white h-screen grid grid-cols-7 grid-rows-3">
+          <div className="h-full border col-span-6 row-span-3 border-slate-700 flex items-center justify-center">
             <img
-              className="h-full w-full"
+              className="h-full"
               src={`https://www.artic.edu/iiif/2/${art?.image_id}/full/843,/0/default.jpg`}
             />
           </div>
-          <div className="h-full border row-span-2 border-slate-700 flex items-center justify-center">
+          <div className="h-full border row-span-2 border-slate-700 flex-col text-center items-center justify-center">
+            <h1 className=" text-amber-300 text-4xl">{art?.artist_title}</h1>
+            <h1 className="text-3xl p-2">{art?.title}</h1>
             <p className="text-3xl p-4">{art?.thumbnail?.alt_text}</p>
           </div>
-          <div className="h-full border col-span-2 border-slate-700 flex flex-col gap-4 items-center justify-center">
-            <h1 className="text-4xl">{art?.artist_title}</h1>
-            <h1 className="text-3xl p-2">{art?.title}</h1>
-          </div>
+
           <div className="h-full grid grid-cols-2  border border-slate-700  items-center justify-center">
             <button
               className="h-full border-slate-700 border-r-2 hover:bg-slate-800 duration-300"
