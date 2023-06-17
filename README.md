@@ -1,4 +1,5 @@
 # CanvasConnection
 Website for viewing Art institue of Chicago's pieces
-![canvas](https://github.com/Mbar1s/CanvasConnection/assets/108489416/fef50c7c-4ad8-40aa-b7c4-2c7da90b5dce)
-![canvas2](https://github.com/Mbar1s/CanvasConnection/assets/108489416/6ec67112-3ad3-4463-8f5f-40da0f9b5ef5)
+
+![canvas2](https://github.com/Mbar1s/CanvasConnection/assets/108489416/a7c50c8a-9023-43af-add3-06b6a456f17e)
+![canvas](https://github.com/Mbar1s/CanvasConnection/assets/108489416/1ab02b0a-22a3-421c-8bb7-acc8916d225d)
